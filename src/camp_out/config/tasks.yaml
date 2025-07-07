@@ -1,17 +1,68 @@
-research_task:
+orchestrate_conversation:
   description: >
-    Conduct a thorough research about {topic}
-    Make sure you find any interesting and relevant information given
-    the current year is {current_year}.
+    Manage the conversation flow for the topic: "{topic}"
+    
+    Your role is to:
+    - Determine which friend speaks next based on conversation context
+    - Ensure friends don't interrupt each other
+    - Maintain balanced participation
+    - Track conversation state and mood
+    
+    Current state:
+    - Last speaker: {previous_speaker}
+    - Conversation history: {conversation_history}
+    - Active threads: {active_discussion_points}
   expected_output: >
-    A list with 10 bullet points of the most relevant information about {topic}
-  agent: researcher
+    A decision object containing:
+    - Next speaker to take turn
+    - Updated conversation state
+    - Any necessary conversation steering suggestions
+  agent: orchestrator
+  context:
+    - conversation_history
+    - active_discussion_points
 
-reporting_task:
+participate_in_conversation:
   description: >
-    Review the context you got and expand each topic into a full section for a report.
-    Make sure the report is detailed and contains any and all relevant information.
+    Join the conversation about: "{topic}"
+    
+    As {current_speaker}, share your thoughts and perspectives while considering:
+    - The current flow of conversation
+    - What others have said so far: {conversation_history}
+    - Ways to deepen or enrich the discussion
   expected_output: >
-    A fully fledged report with the main topics, each with a full section of information.
-    Formatted as markdown without '```'
-  agent: reporting_analyst
+    A natural contribution that builds on the ongoing discussion
+    and encourages further conversation.
+  agent: "{current_speaker}"
+  context:
+    - conversation_history
+
+steer_discussion:
+  description: >
+    Help guide the conversation about "{topic}" in an engaging direction.
+    
+    Current conversation state: {conversation_state}
+    Latest speaker: {previous_speaker}
+    Recent points made: {recent_points}
+  expected_output: >
+    A thoughtful contribution that helps move the conversation forward.
+  agent: "{current_speaker}"
+  context:
+    - conversation_history
+    - recent_points
+
+wrap_up_thought:
+  description: >
+    As the current topic "{topic}" naturally winds down:
+    
+    Conversation so far: {conversation_summary}
+    Key points discussed: {key_points}
+  expected_output: >
+    A natural closing thought that adds value while respecting
+    the flow of conversation.
+  agent: "{current_speaker}"
+  context:
+    - conversation_history
+    - key_points
+
+
