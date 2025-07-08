@@ -10,55 +10,82 @@ from typing import List
 class CampOut():
     """CampOut crew"""
 
-    agents: List[BaseAgent]
-    tasks: List[Task]
+    agents = 'config/agents.yaml'
+    tasks = 'config/tasks.yaml'
 
-    # Learn more about YAML configuration files here:
-    # Agents: https://docs.crewai.com/concepts/agents#yaml-configuration-recommended
-    # Tasks: https://docs.crewai.com/concepts/tasks#yaml-configuration-recommended
+    @agent
+    def friend_1(self) -> Agent:
+        """Friend 1 agent"""
+        return Agent(
+            config=self.agents['friend_1'],
+            verbose=True,
+        )
     
-    # If you would like to add tools to your agents, you can learn more about it here:
-    # https://docs.crewai.com/concepts/agents#agent-tools
     @agent
-    def researcher(self) -> Agent:
+    def friend_2(self) -> Agent:
+        """Friend 2 agent"""
         return Agent(
-            config=self.agents_config['researcher'], # type: ignore[index]
-            verbose=True
+            config=self.agents['friend_2'],
+            verbose=True,
         )
-
+    
     @agent
-    def reporting_analyst(self) -> Agent:
+    def friend_3(self) -> Agent:
+        """Friend 3 agent"""
         return Agent(
-            config=self.agents_config['reporting_analyst'], # type: ignore[index]
-            verbose=True
+            config=self.agents['friend_3'],
+            verbose=True,
         )
-
-    # To learn more about structured task outputs,
-    # task dependencies, and task callbacks, check out the documentation:
-    # https://docs.crewai.com/concepts/tasks#overview-of-a-task
+    
+    @agent
+    def orchestrator(self) -> Agent:
+        """Orchestrator agent"""
+        return Agent(
+            config=self.agents['orchestrator'],
+            verbose=True,
+        )
+    
     @task
-    def research_task(self) -> Task:
+    def participate_in_conversation(self) -> Task:
+        """Participate in conversation"""
         return Task(
-            config=self.tasks_config['research_task'], # type: ignore[index]
+            config=self.tasks['participate_in_conversation'],
+            verbose=True,
         )
-
+    
     @task
-    def reporting_task(self) -> Task:
+    def steer_discussion(self) -> Task:
+        """Steer discussion"""
         return Task(
-            config=self.tasks_config['reporting_task'], # type: ignore[index]
-            output_file='report.md'
+            config=self.tasks['steer_discussion'],
+            verbose=True,
         )
+    
+    @task
+    def wrap_up_thought(self) -> Task:
+        """Wrap up thought"""
+        return Task( 
+            config=self.tasks['wrap_up_thought'],
+            verbose=True,
+        )
+    
+    @task
+    def orchestrate_conversation(self) -> Task:
+        """Orchestrate conversation"""
+        return Task(
+            config=self.tasks['orchestrate_conversation'],
+            verbose=True,
+        )
+    
 
     @crew
-    def crew(self) -> Crew:
-        """Creates the CampOut crew"""
-        # To learn how to add knowledge sources to your crew, check out the documentation:
-        # https://docs.crewai.com/concepts/knowledge#what-is-knowledge
-
+    def crew(self):
+        """Crew"""
         return Crew(
-            agents=self.agents, # Automatically created by the @agent decorator
-            tasks=self.tasks, # Automatically created by the @task decorator
-            process=Process.sequential,
+            agents=self.agents,
+            tasks=self.tasks,
             verbose=True,
-            # process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
+            max_concurrency=10,
+            process=Process.sequential,
         )
+

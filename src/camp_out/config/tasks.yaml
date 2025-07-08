@@ -8,61 +8,54 @@ orchestrate_conversation:
     - Maintain balanced participation
     - Track conversation state and mood
     
-    Current state:
-    - Last speaker: {previous_speaker}
-    - Conversation history: {conversation_history}
-    - Active threads: {active_discussion_points}
   expected_output: >
     A decision object containing:
     - Next speaker to take turn
     - Updated conversation state
     - Any necessary conversation steering suggestions
   agent: orchestrator
-  context:
-    - conversation_history
-    - active_discussion_points
+  
 
 participate_in_conversation:
   description: >
     Join the conversation about: "{topic}"
-    
-    As {current_speaker}, share your thoughts and perspectives while considering:
+  
+    As a speaker, share your thoughts and perspectives while considering:
     - The current flow of conversation
-    - What others have said so far: {conversation_history}
     - Ways to deepen or enrich the discussion
+    - Opportunities to engage others in dialogue
   expected_output: >
     A natural contribution that builds on the ongoing discussion
     and encourages further conversation.
-  agent: "{current_speaker}"
-  context:
-    - conversation_history
+  agent: friend_1
 
 steer_discussion:
   description: >
     Help guide the conversation about "{topic}" in an engaging direction.
     
-    Current conversation state: {conversation_state}
-    Latest speaker: {previous_speaker}
-    Recent points made: {recent_points}
+    As the analytical voice (Rhea), consider:
+    - Current conversation dynamics
+    - Logical connections and patterns
+    - Areas that need deeper exploration
+    - Opportunities to challenge assumptions
   expected_output: >
-    A thoughtful contribution that helps move the conversation forward.
-  agent: "{current_speaker}"
-  context:
-    - conversation_history
-    - recent_points
+    A thoughtful contribution that helps move the conversation forward
+    while maintaining a rational, analytical perspective.
+  agent: friend_2
 
 wrap_up_thought:
   description: >
-    As the current topic "{topic}" naturally winds down:
+    As the reflective voice (Kai), provide a thoughtful closing perspective on "{topic}".
     
-    Conversation so far: {conversation_summary}
-    Key points discussed: {key_points}
+    Consider:
+    - The different viewpoints shared
+    - Common ground and shared insights
+    - Deeper meanings or lessons
+    - Ways to bridge different perspectives
+    - What we can learn from this discussion
   expected_output: >
-    A natural closing thought that adds value while respecting
-    the flow of conversation.
-  agent: "{current_speaker}"
-  context:
-    - conversation_history
-    - key_points
+    A mindful, harmonizing conclusion that acknowledges different viewpoints
+    while finding common threads and deeper meaning in the conversation.
+  agent: friend_3
 
 
