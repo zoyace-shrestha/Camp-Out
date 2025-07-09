@@ -10,14 +10,14 @@ from typing import List
 class CampOut():
     """CampOut crew"""
 
-    agents = 'config/agents.yaml'
-    tasks = 'config/tasks.yaml'
+    agents_config = 'config/agents.yaml'
+    tasks_config = 'config/tasks.yaml'
 
     @agent
     def friend_1(self) -> Agent:
         """Friend 1 agent"""
         return Agent(
-            config=self.agents['friend_1'],
+            config=self.agents_config['friend_1'],
             verbose=True,
         )
     
@@ -25,7 +25,7 @@ class CampOut():
     def friend_2(self) -> Agent:
         """Friend 2 agent"""
         return Agent(
-            config=self.agents['friend_2'],
+            config=self.agents_config['friend_2'],
             verbose=True,
         )
     
@@ -33,7 +33,7 @@ class CampOut():
     def friend_3(self) -> Agent:
         """Friend 3 agent"""
         return Agent(
-            config=self.agents['friend_3'],
+            config=self.agents_config['friend_3'],
             verbose=True,
         )
     
@@ -41,39 +41,31 @@ class CampOut():
     def orchestrator(self) -> Agent:
         """Orchestrator agent"""
         return Agent(
-            config=self.agents['orchestrator'],
-            verbose=True,
+            config=self.agents_config['orchestrator'],
+            verbose=False,  # Match YAML config
         )
     
     @task
-    def participate_in_conversation(self) -> Task:
-        """Participate in conversation"""
+    def zeak_conversation(self) -> Task:
+        """Zeak's conversation contribution"""
         return Task(
-            config=self.tasks['participate_in_conversation'],
+            config=self.tasks_config['zeak_conversation'],
             verbose=True,
         )
     
     @task
-    def steer_discussion(self) -> Task:
-        """Steer discussion"""
+    def rhea_conversation(self) -> Task:
+        """Rhea's conversation contribution"""
         return Task(
-            config=self.tasks['steer_discussion'],
+            config=self.tasks_config['rhea_conversation'],
             verbose=True,
         )
     
     @task
-    def wrap_up_thought(self) -> Task:
-        """Wrap up thought"""
-        return Task( 
-            config=self.tasks['wrap_up_thought'],
-            verbose=True,
-        )
-    
-    @task
-    def orchestrate_conversation(self) -> Task:
-        """Orchestrate conversation"""
+    def kai_conversation(self) -> Task:
+        """Kai's conversation contribution"""
         return Task(
-            config=self.tasks['orchestrate_conversation'],
+            config=self.tasks_config['kai_conversation'],
             verbose=True,
         )
     
@@ -85,7 +77,8 @@ class CampOut():
             agents=self.agents,
             tasks=self.tasks,
             verbose=True,
-            max_concurrency=10,
+            max_concurrency=1,  # Sequential with delegation for conversation flow
             process=Process.sequential,
+            memory=True,  # Enable memory to track conversation flow
         )
 

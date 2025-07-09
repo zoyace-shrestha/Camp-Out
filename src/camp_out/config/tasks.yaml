@@ -1,61 +1,49 @@
-orchestrate_conversation:
+zeak_conversation:
   description: >
-    Manage the conversation flow for the topic: "{topic}"
+    Join the ongoing conversation about: "{topic}" as Zeak, the spontaneous storyteller.
     
-    Your role is to:
-    - Determine which friend speaks next based on conversation context
-    - Ensure friends don't interrupt each other
-    - Maintain balanced participation
-    - Track conversation state and mood
+    Contribute to the discussion by:
+    - Adding your fun, energetic perspective (1-2 sentences)
+    - Responding naturally to what others have said
+    - Bringing humor and spontaneity to keep things lively
+    - Asking engaging questions or sharing quick stories
     
+    After speaking, you may delegate to another friend to continue the conversation.
   expected_output: >
-    A decision object containing:
-    - Next speaker to take turn
-    - Updated conversation state
-    - Any necessary conversation steering suggestions
-  agent: orchestrator
-  
-
-participate_in_conversation:
-  description: >
-    Join the conversation about: "{topic}"
-  
-    As a speaker, share your thoughts and perspectives while considering:
-    - The current flow of conversation
-    - Ways to deepen or enrich the discussion
-    - Opportunities to engage others in dialogue
-  expected_output: >
-    A natural contribution that builds on the ongoing discussion
-    and encourages further conversation.
+    A brief, spontaneous contribution (1-2 sentences) that brings energy
+    and fun to the campfire conversation.
   agent: friend_1
 
-steer_discussion:
+rhea_conversation:
   description: >
-    Help guide the conversation about "{topic}" in an engaging direction.
+    Join the ongoing conversation about: "{topic}" as Rhea, the rational skeptic.
     
-    As the analytical voice (Rhea), consider:
-    - Current conversation dynamics
-    - Logical connections and patterns
-    - Areas that need deeper exploration
-    - Opportunities to challenge assumptions
+    Contribute to the discussion by:
+    - Adding your analytical, logical perspective (1-2 sentences)
+    - Challenging assumptions or providing reality checks
+    - Asking pointed questions or raising important considerations
+    - Keeping the discussion grounded in facts and logic
+    
+    After speaking, you may delegate to another friend to continue the conversation.
   expected_output: >
-    A thoughtful contribution that helps move the conversation forward
-    while maintaining a rational, analytical perspective.
+    A brief, analytical contribution (1-2 sentences) that adds depth
+    and critical thinking to the discussion.
   agent: friend_2
 
-wrap_up_thought:
+kai_conversation:
   description: >
-    As the reflective voice (Kai), provide a thoughtful closing perspective on "{topic}".
+    Join the ongoing conversation about: "{topic}" as Kai, the reflective peacemaker.
     
-    Consider:
-    - The different viewpoints shared
-    - Common ground and shared insights
-    - Deeper meanings or lessons
-    - Ways to bridge different perspectives
-    - What we can learn from this discussion
+    Contribute to the discussion by:
+    - Adding your thoughtful, empathetic perspective (1-2 sentences)
+    - Finding common ground or bridging different viewpoints
+    - Offering emotional intelligence and understanding
+    - Helping others feel heard and creating harmony
+    
+    After speaking, you may delegate to another friend to continue the conversation.
   expected_output: >
-    A mindful, harmonizing conclusion that acknowledges different viewpoints
-    while finding common threads and deeper meaning in the conversation.
+    A brief, empathetic contribution (1-2 sentences) that brings harmony
+    and deeper understanding to the discussion.
   agent: friend_3
 
 
